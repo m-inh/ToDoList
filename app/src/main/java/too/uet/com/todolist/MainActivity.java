@@ -52,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onServiceDisconnected(ComponentName name) {
-            Log.i(TAG, "service is dissconected");
+//            Log.i(TAG, "service is dissconected");
         }
     };
 
@@ -63,15 +63,9 @@ public class MainActivity extends AppCompatActivity {
 
         initViews();
 
-        // demo
-        Intent intent = new Intent();
-        intent.setClass(this, NotiMessageService.class);
-        startService(intent);
-
-        // start service
+        // bind service
         Intent mIntent = new Intent();
         mIntent.setClass(this, HandleMessageService.class);
-        startService(mIntent);
         bindService(mIntent, conn, BIND_AUTO_CREATE);
     }
 
@@ -128,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.item_add) {
-            Log.i(TAG, "ok");
+//            Log.i(TAG, "ok");
             NewItemPopUp dialog = new NewItemPopUp(this);
             dialog.setMainActivity(this);
             dialog.show();
@@ -165,5 +159,14 @@ public class MainActivity extends AppCompatActivity {
         } catch (RemoteException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        // stop service
+        Intent mIntent = new Intent();
+        mIntent.setClass(this, HandleMessageService.class);
+        unbindService(conn);
     }
 }

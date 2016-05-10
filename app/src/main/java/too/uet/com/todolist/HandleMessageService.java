@@ -8,6 +8,7 @@ import android.os.IBinder;
 import android.os.Message;
 import android.os.Messenger;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.github.nkzawa.emitter.Emitter;
 import com.github.nkzawa.socketio.client.IO;
@@ -35,6 +36,7 @@ public class HandleMessageService extends Service{
     public void onCreate() {
         super.onCreate();
         Log.i(TAG, "service is onCreate");
+//        Toast.makeText(this, "on create", Toast.LENGTH_SHORT).show();
 
         try{
             mSocket = IO.socket("http://viettel.io:5678");
@@ -73,7 +75,7 @@ public class HandleMessageService extends Service{
     };
 
     public void deleteMess(String id){
-        Log.i(TAG, "bam delete");
+//        Log.i(TAG, "bam delete");
         if (mSocket.connected()){
             Log.i(TAG, "bam delete connected: " + id);
             mSocket.emit("delete_todo_", id);
@@ -94,7 +96,8 @@ public class HandleMessageService extends Service{
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
-        Log.i(TAG, "service onstartcommand");
+//        Log.i(TAG, "service onstartcommand");
+//        Toast.makeText(this, "on start command", Toast.LENGTH_SHORT).show();
         return START_STICKY;
     }
 
@@ -122,6 +125,7 @@ public class HandleMessageService extends Service{
 
     @Override
     public IBinder onBind(Intent intent) {
+//        Log.i(TAG, "onBind");
         return messenger.getBinder();
     }
 
