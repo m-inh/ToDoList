@@ -70,7 +70,7 @@ public class HandleMessageService extends Service{
     Emitter.Listener listenDeleteMess = new Emitter.Listener() {
         @Override
         public void call(Object... args) {
-            EventBus.getDefault().post(new DeleteToDoMessage(args[0].toString()));
+            EventBus.getDefault().postSticky(new DeleteToDoMessage(args[0].toString()));
         }
     };
 

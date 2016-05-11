@@ -78,8 +78,9 @@ public class MainActivity extends AppCompatActivity {
         lvMain.setAdapter(mAdapter);
     }
 
-    @Subscribe(threadMode = ThreadMode.MAIN)
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onEvent(final ServerMessage mess) {
+
         if (mess instanceof NewToDoMessage) {
             try {
                 JSONObject json = new JSONObject(((NewToDoMessage) mess).getJsonString());
